@@ -1,0 +1,8 @@
+*~
+.*
+*.o
+Makefile
+*.gz
+resources
+Text-FriBidi-*
+.gitignore
