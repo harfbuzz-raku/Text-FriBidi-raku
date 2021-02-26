@@ -27,3 +27,9 @@ multi method COERCE(Str:D $str) {
     self.new: :$str;
 }
 
+method bidi-types returns Seq {
+    my Blob[FriBidiCharType] $types .= allocate: $.elems;
+    fribidi_get_bidi_types($!buf, $.elems, $types);
+    $types.Seq;
+}
+
