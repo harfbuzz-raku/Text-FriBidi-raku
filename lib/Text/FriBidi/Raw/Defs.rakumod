@@ -5,8 +5,9 @@ our $CLIB is export(:CLIB) = Rakudo::Internals.IS-WIN ?? 'msvcrt' !! Str;
 
 constant FriBidiStrIndex is export(:types) = int32;
 constant FriBidiChar     is export(:types) = uint32;
-constant FriBidiCharType is export(:types) = int32;
-constant FriBidiParType  is export(:types) = int32;
+constant FriBidiCharType is export(:types) = uint32;
+constant FriBidiParType  is export(:types) = uint32;
+constant FriBidiBracketType  is export(:types) = FriBidiCharType;
 
 enum FriBidiMask is export(:FriBidiMask) (
     
@@ -57,7 +58,7 @@ enum FriBidiType is export(:FriBidiType) (
     # Left-To-Right letter
     :FRIBIDI_TYPE_LTR(FRIBIDI_MASK_STRONG +| FRIBIDI_MASK_LETTER),
     # Right-To-Left letter
-    :FRIBIDI_TYPE_RLT(FRIBIDI_MASK_STRONG +| FRIBIDI_MASK_LETTER +| FRIBIDI_MASK_RTL),
+    :FRIBIDI_TYPE_RTL(FRIBIDI_MASK_STRONG +| FRIBIDI_MASK_LETTER +| FRIBIDI_MASK_RTL),
     # Arabic Letter
     :FRIBIDI_TYPE_AL(FRIBIDI_MASK_STRONG +| FRIBIDI_MASK_LETTER
 		     +| FRIBIDI_MASK_RTL +| FRIBIDI_MASK_ARABIC),
@@ -104,5 +105,16 @@ enum FriBidiType is export(:FriBidiType) (
 		      +| FRIBIDI_MASK_RTL +| FRIBIDI_MASK_OVERRIDE),
     # Pop Directional Flag.
     :FRIBIDI_TYPE_PDF(FRIBIDI_MASK_WEAK +| FRIBIDI_MASK_EXPLICIT),
+    # Weak Left-To-Right
+    :FRIBIDI_TYPE_WLTR(+FRIBIDI_MASK_WEAK),
+    # Weak Right-To-Left
+    :FRIBIDI_TYPE_WRTL(FRIBIDI_MASK_WEAK +| FRIBIDI_MASK_RTL),
+);
 
+enum FriBidiPar is export(:FriBidiPar) (
+    :FRIBIDI_PAR_LTR(FRIBIDI_TYPE_LTR),
+    :FRIBIDI_PAR_RTL(FRIBIDI_TYPE_RTL),
+    :FRIBIDI_PAR_ON(FRIBIDI_TYPE_ON),
+    :FRIBIDI_PAR_WLTR(FRIBIDI_TYPE_WLTR),
+    :FRIBIDI_PAR_WRTL(FRIBIDI_TYPE_WRTL),
 );
