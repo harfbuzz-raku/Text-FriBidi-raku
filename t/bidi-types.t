@@ -1,9 +1,9 @@
 use Test;
 plan 4;
 
-use Text::FriBidi::String;
+use Text::FriBidi::Line;
 use Text::FriBidi::Raw::Defs :FriBidiType, :FriBidiPar;
-my Text::FriBidi::String() $bidi-str = "Hello 42";
+my Text::FriBidi::Line() $bidi-str = "Hello 42";
 
 is $bidi-str.Str, 'Hello 42';
 is-deeply $bidi-str.buf, utf32.new: "Hello 42".ords;

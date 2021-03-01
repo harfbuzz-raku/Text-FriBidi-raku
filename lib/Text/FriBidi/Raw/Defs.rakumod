@@ -3,11 +3,15 @@ unit module Text::FriBidi::Raw::Defs;
 our $FB is export(:FB) = 'fribidi';
 our $CLIB is export(:CLIB) = Rakudo::Internals.IS-WIN ?? 'msvcrt' !! Str;
 
-constant FriBidiStrIndex is export(:types) = int32;
-constant FriBidiChar     is export(:types) = uint32;
-constant FriBidiCharType is export(:types) = uint32;
-constant FriBidiParType  is export(:types) = uint32;
-constant FriBidiBracketType  is export(:types) = FriBidiCharType;
+constant FriBidiArabicProp  is export(:types) = uint8;
+constant FriBidiBracketType is export(:types) = uint32;
+constant FriBidiChar        is export(:types) = uint32;
+constant FriBidiCharType    is export(:types) = uint32;
+constant FriBidiFlags       is export(:types) = uint32;
+constant FriBidiJoiningType is export(:types) = uint8;
+constant FriBidiLevel       is export(:types) = int8;
+constant FriBidiParType     is export(:types) = uint32;
+constant FriBidiStrIndex    is export(:types) = int32;
 
 enum FriBidiMask is export(:FriBidiMask) (
     
@@ -53,6 +57,22 @@ enum FriBidiMask is export(:FriBidiMask) (
     :FRIBIDI_MASK_PRIVATE(0x1000000),
 
 );
+
+enum FriBidiFlag is export(:FriBidiFlag) (
+    :FRIBIDI_FLAG_SHAPE_MIRRORING(0x1),
+    :FRIBIDI_FLAG_REORDER_NSM(0x2),
+
+    :FRIBIDI_FLAG_SHAPE_ARAB_PRES(0x100),
+    :FRIBIDI_FLAG_SHAPE_ARAB_LIGA(0x200),
+    :FRIBIDI_FLAG_SHAPE_ARAB_CONSOLE(0x400),
+
+    :FRIBIDI_FLAG_REMOVE_BIDI(0x10000),
+    :FRIBIDI_FLAG_REMOVE_JOINING(0x20000),
+    :FRIBIDI_FLAG_REMOVE_SPECIALS(0x40000),
+);
+
+constant FRIBIDI_FLAGS_DEFAULT is export(:FriBidiFlag) = FRIBIDI_FLAG_SHAPE_MIRRORING +| FRIBIDI_FLAG_REORDER_NSM +| FRIBIDI_FLAG_REMOVE_SPECIALS;
+constant FRIBIDI_FLAGS_ARABIC is export(:FriBidiFlag) = FRIBIDI_FLAG_SHAPE_ARAB_PRES +| FRIBIDI_FLAG_SHAPE_ARAB_LIGA;
 
 enum FriBidiType is export(:FriBidiType) (
     # Left-To-Right letter
@@ -117,4 +137,34 @@ enum FriBidiPar is export(:FriBidiPar) (
     :FRIBIDI_PAR_ON(FRIBIDI_TYPE_ON),
     :FRIBIDI_PAR_WLTR(FRIBIDI_TYPE_WLTR),
     :FRIBIDI_PAR_WRTL(FRIBIDI_TYPE_WRTL),
+);
+
+enum FriBidiJoinMask is export(:FriBidiJoinMask) (
+    :FRIBIDI_MASK_JOINS_RIGHT(0x01),	# May join to right
+    :FRIBIDI_MASK_JOINS_LEFT(0x02),	# May join to right
+    :FRIBIDI_MASK_ARAB_SHAPES(0x04),	# May Arabic shape
+    :FRIBIDI_MASK_TRANSPARENT(0x08),	# Is transparent
+    :FRIBIDI_MASK_IGNORED(0x10),	# Is ignored
+    :FRIBIDI_MASK_LIGATURED(0x20),	# Is ligatured
+);
+
+enum FriBidiJoin is export(:FriBidiJoin) (
+    # Non(nUn)-joining
+    :FRIBIDI_JOINING_TYPE_U( 0 ),
+
+    # Right-joining
+    :FRIBIDI_JOINING_TYPE_R( FRIBIDI_MASK_JOINS_RIGHT +| FRIBIDI_MASK_ARAB_SHAPES ),
+
+    # Dual-joining
+    :FRIBIDI_JOINING_TYPE_D( FRIBIDI_MASK_JOINS_RIGHT +| FRIBIDI_MASK_JOINS_LEFT +| FRIBIDI_MASK_ARAB_SHAPES ),
+
+    # join-Causing
+    :FRIBIDI_JOINING_TYPE_C( FRIBIDI_MASK_JOINS_RIGHT +| FRIBIDI_MASK_JOINS_LEFT ),
+
+    # Left-joining
+    :FRIBIDI_JOINING_TYPE_L( FRIBIDI_MASK_JOINS_LEFT +| FRIBIDI_MASK_ARAB_SHAPES ),
+
+    # Transparent
+    :FRIBIDI_JOINING_TYPE_T( FRIBIDI_MASK_TRANSPARENT +| FRIBIDI_MASK_ARAB_SHAPES ),
+
 );
