@@ -12,6 +12,7 @@
   "name": "Text::FriBidi::Raw",
   "perl": "6.d",
   "provides": {
+    "Text::FriBidi": "lib/Text/FriBidi.rakumod",
     "Text::FriBidi::Raw": "lib/Text/FriBidi/Raw.rakumod",
     "Text::FriBidi::Raw::Defs": "lib/Text/FriBidi/Raw/Defs.rakumod",
     "Text::FriBidi::Line": "lib/Text/FriBidi/Line.rakumod"
