@@ -7,7 +7,8 @@ has Str:D $.str is required;
 has FriBidiParType $.dir is rw;
 has FriBidiFlags $.flags = FRIBIDI_FLAGS_DEFAULT +| FRIBIDI_FLAGS_ARABIC;
 has utf32 $.buf is built handles<elems>;
-has utf32 $.visual;
+has utf32 $.shaped is built;
+has utf32 $.visual is built;
 has uint8 $.max-level is built;
 has Blob[FriBidiCharType] $.bidi-types is built;
 has Blob[FriBidiCharType] $.bracket-types is built;
@@ -21,13 +22,21 @@ submethod TWEAK {
     $!dir ||= fribidi_get_par_direction($!bidi-types, $len);
     self!build-bracket-types;
     self!build-embedding-levels;
-    $!visual = $!buf.clone;
+    $!shaped = $!buf.clone;
+    my Blob[FriBidiStrIndex] $map .= new(0 .. $!shaped.elems);
+    $len := fribidi_remove_bidi_marks($!shaped, $!shaped.elems, $map, Blob[FriBidiStrIndex], $!embedding-levels, );
+    $!shaped .= subbuf(0, $len);
     if $!shape {
         my Blob[FriBidiArabicProp] $ar-props .= allocate: $len;
         fribidi_get_joining_types($!buf, $!buf.elems, $ar-props);
         fribidi_join_arabic($!bidi-types, $len, $!embedding-levels, $ar-props);
-        fribidi_shape($!flags, $!embedding-levels, $len, $ar-props, $!visual);
+        fribidi_shape($!flags, $!embedding-levels, $len, $ar-props, $!shaped);
     }
+    $!visual = $!shaped.clone;
+}
+
+multi method COERCE(Str:D $str) {
+    self.new: :$str;
 }
 
 method !build-buf {

@@ -7,6 +7,6 @@ constant $PDF = 0x202C.chr;
 
 use Text::FriBidi::Line;
 my Text::FriBidi::Line() $line = "Left {$RLO}Right{$PDF} left";
-is-deeply $line.Str, 'Left ‮‬thgiR left';
+is-deeply $line.Str, 'Left thgiR left';
 
 

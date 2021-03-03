@@ -20,3 +20,5 @@ sub fribidi_get_joining_types(Blob[FriBidiChar] $str, FriBidiStrIndex $len, Blob
 sub fribidi_join_arabic(Blob[FriBidiCharType] $bidi-types, FriBidiStrIndex $len, Blob[FriBidiLevel] $levels, Blob[FriBidiArabicProp] $ar-props) is export is native($FB) {...};
 
 sub fribidi_shape(FriBidiFlags $flags, Blob[FriBidiLevel] $levels, FriBidiStrIndex $len, Blob[FriBidiArabicProp] $ar-props,  Blob[FriBidiChar] $str, ) is export is native($FB) {...};
+
+sub fribidi_remove_bidi_marks(utf8 $str, FriBidiStrIndex $len, Blob[FriBidiStrIndex] $map-in, Blob[FriBidiStrIndex] $map-out, Blob[FriBidiLevel] $levels --> FriBidiStrIndex) is export is native($FB) {...};
