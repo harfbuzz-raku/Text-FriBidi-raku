@@ -3,19 +3,10 @@ unit class Text::FriBidi::Line
     is Text::FriBidi;
 
 use Text::FriBidi::Raw;
-use Text::FriBidi::Raw::Defs :types;
-
-has Blob[FriBidiStrIndex] $.map is built;
-
-multi method COERCE(Str:D $str) {
-    self.new: :$str;
-}
 
 submethod TWEAK {
-    $!map .= new: 1 .. self.elems;
-    fribidi_reorder_line(self.flags, self.bidi-types, self.elems, 0, self.dir, self.embedding-levels, self.visual, $!map);
-}
-
-method Str {
-    self.visual.map(*.chr).join;
+    fribidi_reorder_line(self.flags, self.bidi-types, self.elems, 0, self.dir, self.embedding-levels, self.visual, self.logical-map);
+    my $len := fribidi_remove_bidi_marks(self.visual, self.elems, self.logical-map, self.visual-map, self.embedding-levels);
+    self.visual .= subbuf(0, $len)
+       if $len ~~ 0 ..^ self.visual.elems;
 }
