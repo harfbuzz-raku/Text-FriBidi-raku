@@ -11,6 +11,8 @@ sub fribidi_utf8_to_unicode(utf8 $in, FriBidiStrIndex $len, utf32 --> FriBidiStr
 
 sub fribidi_get_par_direction(Blob[FriBidiCharType] $bidi-types, FriBidiStrIndex $len --> FriBidiParType) is export is native($FB) {...};
 
+sub fribidi_get_par_embedding_levels(Blob[FriBidiCharType] $bidi-types, FriBidiStrIndex $len, FriBidiParType $base-dir is rw, Buf[FriBidiLevel] $levels --> FriBidiLevel) is export is native($FB) {...};
+
 sub fribidi_get_par_embedding_levels_ex(Blob[FriBidiCharType] $bidi-types, Blob[FriBidiCharType] $bracket-types, FriBidiStrIndex $len, FriBidiParType $base-dir is rw, Buf[FriBidiLevel] $levels --> FriBidiLevel) is export is native($FB) {...};
 
 sub fribidi_reorder_line(FriBidiFlags $flags, Blob[FriBidiCharType] $bidi-types, FriBidiStrIndex $len, FriBidiStrIndex $offset, FriBidiParType $base-dir is rw, Blob[FriBidiLevel] $levels, Buf[FriBidiChar] $str, Buf[FriBidiStrIndex] --> FriBidiLevel) is export is native($FB) {...};

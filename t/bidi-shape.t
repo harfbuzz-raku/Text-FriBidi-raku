@@ -16,6 +16,6 @@ for (
     ) {
     my $test = .key;
     my ($str, $vis) = .value;
-    my $line = Text::FriBidi::Line.new(:$str);
+    my Text::FriBidi::Line $line .= new: :$str, :!brackets;
     is $line.Str, $vis, "$test: $str -> $vis";
 }

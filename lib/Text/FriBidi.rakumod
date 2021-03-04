@@ -16,12 +16,17 @@ has Buf[FriBidiStrIndex] $.logical-map is built;
 has Buf[FriBidiStrIndex] $.visual-map is built;
 has Bool $.shape = True;
 
-submethod TWEAK {
+submethod TWEAK(Bool :$brackets = True) {
     self!build-logical;
     self!build-bidi-types;
     $!dir ||= fribidi_get_par_direction($!bidi-types, self.elems);
-    self!build-bracket-types;
-    self!build-embedding-levels;
+    if $brackets {
+        self!build-bracket-types;
+        self!build-embedding-levels-ex;
+    }
+    else {
+        self!build-embedding-levels;
+    }
     $!visual .= new: $!logical;
     self!shape if $!shape;
 }
@@ -46,6 +51,12 @@ method !build-bracket-types {
 }
 
 method !build-embedding-levels {
+    $!embedding-levels .= allocate: self.elems;
+    $!max-level = fribidi_get_par_embedding_levels($!bidi-types, self.elems, $!dir, $!embedding-levels);
+    $!max-level--;
+}
+
+method !build-embedding-levels-ex {
     $!embedding-levels .= allocate: self.elems;
     $!max-level = fribidi_get_par_embedding_levels_ex($!bidi-types, $!bracket-types, self.elems, $!dir, $!embedding-levels);
     $!max-level--;
