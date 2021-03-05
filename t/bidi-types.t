@@ -3,6 +3,7 @@ plan 4;
 
 use Text::FriBidi::Line;
 use Text::FriBidi::Raw::Defs :FriBidiType, :FriBidiPar;
+
 my $str = "Hello 42";
 my Text::FriBidi::Line $line .= new: :$str, :!brackets;
 

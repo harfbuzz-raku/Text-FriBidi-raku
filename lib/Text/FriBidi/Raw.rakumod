@@ -24,3 +24,7 @@ sub fribidi_join_arabic(Blob[FriBidiCharType] $bidi-types, FriBidiStrIndex $len,
 sub fribidi_shape(FriBidiFlags $flags, Blob[FriBidiLevel] $levels, FriBidiStrIndex $len, Blob[FriBidiArabicProp] $ar-props,  Buf[FriBidiChar] $str, ) is export is native($FB) {...};
 
 sub fribidi_remove_bidi_marks(Buf[uint32] $str, FriBidiStrIndex $len, Buf[FriBidiStrIndex], Buf[FriBidiStrIndex], Buf[FriBidiLevel] $levels --> FriBidiStrIndex) is export is native($FB) {...};
+
+sub fribidi_version_info is rw is export {
+    cglobal($FB, 'fribidi_version_info', str);
+}

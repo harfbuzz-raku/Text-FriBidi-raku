@@ -1,4 +1,4 @@
-unit class Text::FriBidi;
+unit class Text::FriBidi:ver<0.0.1>;
 
 use Text::FriBidi::Raw;
 use Text::FriBidi::Raw::Defs :types, :FriBidiFlag;
@@ -79,6 +79,19 @@ method visual-map {
         }
     }
     $!visual-map;
+}
+
+method version-info {
+    fribidi_version_info();
+}
+
+method version {
+    if fribidi_version_info() ~~ m/') '(\d+'.'\d+'.'\d+)/ {
+        Version.new: ~$0
+    }
+    else {
+        Version
+    }
 }
 
 method Str {
