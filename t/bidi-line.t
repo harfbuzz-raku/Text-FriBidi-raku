@@ -8,7 +8,7 @@ constant $LRO = 0x202D.chr;
 constant $RLO = 0x202E.chr;
 constant $PDF = 0x202C.chr;
 
-note "Text::FriBidi version {Text::FriBidi.^ver}; FriBidi version " ~ Text::FriBidi.version;
+note "Running FriBidi version {Text::FriBidi.lib-version} (Text::FriBidi version {Text::FriBidi.^ver})";
 
 my $str = "Left {$RLO}Right{$PDF} {$LRO}left{$PDF}";
 my Text::FriBidi::Line $line .= new: :$str, :!brackets;

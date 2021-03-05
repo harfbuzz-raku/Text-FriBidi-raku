@@ -15,12 +15,13 @@ has Buf[FriBidiLevel]    $.embedding-levels is built;
 has Buf[FriBidiStrIndex] $.logical-map is built;
 has Buf[FriBidiStrIndex] $.visual-map is built;
 has Bool $.shape = True;
+has UInt $.api = self.lib-version >= v1.0.0 ?? 1 !! 0;
 
 submethod TWEAK(Bool :$brackets = True) {
     self!build-logical;
     self!build-bidi-types;
     $!dir ||= fribidi_get_par_direction($!bidi-types, self.elems);
-    if $brackets {
+    if $!api >= 1 {
         self!build-bracket-types;
         self!build-embedding-levels-ex;
     }
@@ -85,13 +86,14 @@ method version-info {
     fribidi_version_info();
 }
 
-method version {
-    if fribidi_version_info() ~~ m/') '(\d+'.'\d+'.'\d+)/ {
-        Version.new: ~$0
+method lib-version {
+    state Version $version;
+    without $version {
+        if fribidi_version_info() ~~ m/') '(<[0..9 .]>+)/ {
+            $_ .= new: ~$0
+        }
     }
-    else {
-        Version
-    }
+    $version;
 }
 
 method Str {
