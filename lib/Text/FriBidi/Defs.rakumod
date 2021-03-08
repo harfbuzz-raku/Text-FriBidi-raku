@@ -1,4 +1,4 @@
-unit module Text::FriBidi::Raw::Defs;
+unit module Text::FriBidi::Defs;
 
 our $FB is export(:FB) = 'fribidi';
 our $CLIB is export(:CLIB) = Rakudo::Internals.IS-WIN ?? 'msvcrt' !! Str;

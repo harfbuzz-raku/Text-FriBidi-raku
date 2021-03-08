@@ -1,6 +1,6 @@
 unit module Text::FriBidi::Raw;
 
-use Text::FriBidi::Raw::Defs :$FB, :types;
+use Text::FriBidi::Defs :$FB, :types;
 use NativeCall;
 
 sub fribidi_get_bidi_types(utf32, FriBidiStrIndex $len, Buf[FriBidiCharType] $bidi-types) is export is native($FB) {...};

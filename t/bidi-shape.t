@@ -15,7 +15,7 @@ for (
 	"\c[ARABIC LETTER HAH FINAL FORM]\c[ARABIC LETTER LAM INITIAL FORM]"),
     ) {
     my $test = .key;
-    my ($str, $vis) = .value;
-    my Text::FriBidi::Line $line .= new: :$str, :!brackets;
-    is $line.Str, $vis, "$test: $str -> $vis";
+    my ($text, $vis) = .value;
+    my Text::FriBidi::Line $line .= new: :$text;
+    is $line.Str, $vis, "$test: $text -> $vis";
 }

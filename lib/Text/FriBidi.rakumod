@@ -1,11 +1,11 @@
 unit class Text::FriBidi:ver<0.0.1>;
 
 use Text::FriBidi::Raw;
-use Text::FriBidi::Raw::Defs :types, :FriBidiFlag;
+use Text::FriBidi::Defs :types, :FriBidiFlag;
 
-has Str:D $.str is required;
-has FriBidiParType $.dir is rw;
-has FriBidiFlags $.flags = FRIBIDI_FLAGS_DEFAULT +| FRIBIDI_FLAGS_ARABIC;
+has Str:D $.text is required;
+has FriBidiParType $.direction is built is rw;
+has FriBidiFlags $.flags is built;
 has utf32 $.logical is built handles<elems>;
 has Buf[uint32] $.visual is built;
 has uint8 $.max-level is built;
@@ -14,13 +14,12 @@ has Buf[FriBidiCharType] $.bracket-types is built;
 has Buf[FriBidiLevel]    $.embedding-levels is built;
 has Buf[FriBidiStrIndex] $.logical-map is built;
 has Buf[FriBidiStrIndex] $.visual-map is built;
-has Bool $.shape = True;
 has UInt $.api = self.lib-version >= v1.0.0 ?? 1 !! 0;
 
-submethod TWEAK(Bool :$brackets = True) {
+submethod TWEAK(:$!direction = 0, :$!flags = FRIBIDI_FLAGS_DEFAULT +| FRIBIDI_FLAGS_ARABIC) {
     self!build-logical;
     self!build-bidi-types;
-    $!dir ||= fribidi_get_par_direction($!bidi-types, self.elems);
+    $!direction ||= fribidi_get_par_direction($!bidi-types, self.elems);
     if $!api >= 1 {
         self!build-bracket-types;
         self!build-embedding-levels-ex;
@@ -29,15 +28,15 @@ submethod TWEAK(Bool :$brackets = True) {
         self!build-embedding-levels;
     }
     $!visual .= new: $!logical;
-    self!shape if $!shape;
+    self!shape;
 }
 
-multi method COERCE(Str:D $str) {
-    self.new: :$str;
+multi method COERCE(Str:D $text) {
+    self.new: :$text;
 }
 
 method !build-logical {
-    $!logical .= new: $!str.ords;
+    $!logical .= new: $!text.ords;
     $!logical-map .= new: 0 ..^ $!logical.elems;
 }
 
@@ -53,13 +52,13 @@ method !build-bracket-types {
 
 method !build-embedding-levels {
     $!embedding-levels .= allocate: self.elems;
-    $!max-level = fribidi_get_par_embedding_levels($!bidi-types, self.elems, $!dir, $!embedding-levels);
+    $!max-level = fribidi_get_par_embedding_levels($!bidi-types, self.elems, $!direction, $!embedding-levels);
     $!max-level--;
 }
 
 method !build-embedding-levels-ex {
     $!embedding-levels .= allocate: self.elems;
-    $!max-level = fribidi_get_par_embedding_levels_ex($!bidi-types, $!bracket-types, self.elems, $!dir, $!embedding-levels);
+    $!max-level = fribidi_get_par_embedding_levels_ex($!bidi-types, $!bracket-types, self.elems, $!direction, $!embedding-levels);
     $!max-level--;
 }
 

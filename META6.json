@@ -14,13 +14,13 @@
   "provides": {
     "Text::FriBidi": "lib/Text/FriBidi.rakumod",
     "Text::FriBidi::Raw": "lib/Text/FriBidi/Raw.rakumod",
-    "Text::FriBidi::Raw::Defs": "lib/Text/FriBidi/Raw/Defs.rakumod",
+    "Text::FriBidi::Defs": "lib/Text/FriBidi/Defs.rakumod",
     "Text::FriBidi::Line": "lib/Text/FriBidi/Line.rakumod"
   },
   "resources": [
   ],
   "source-url": "git://github.com/harfbuzz-raku/Text-FriBidi-raku.git",
-  "tags": [ "bidi"
+    "tags": [ "bidi", "unicode", "bidirectional"
   ],
   "test-depends": [
   ],
