@@ -9,18 +9,21 @@
   ],
   "description": "Bindings to the FriBidi bidirectional Unicode implmentation",
   "license": "Artistic-2.0",
-  "name": "Text::FriBidi::Raw",
+  "name": "Text::FriBidi",
   "perl": "6.d",
   "provides": {
     "Text::FriBidi": "lib/Text/FriBidi.rakumod",
-    "Text::FriBidi::Raw": "lib/Text/FriBidi/Raw.rakumod",
     "Text::FriBidi::Defs": "lib/Text/FriBidi/Defs.rakumod",
-    "Text::FriBidi::Line": "lib/Text/FriBidi/Line.rakumod"
+    "Text::FriBidi::Line": "lib/Text/FriBidi/Line.rakumod",
+    "Text::FriBidi::Raw": "lib/Text/FriBidi/Raw.rakumod"
   },
   "resources": [
   ],
   "source-url": "git://github.com/harfbuzz-raku/Text-FriBidi-raku.git",
-    "tags": [ "bidi", "unicode", "bidirectional"
+  "tags": [
+    "bidi",
+    "unicode",
+    "bidirectional"
   ],
   "test-depends": [
   ],

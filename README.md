@@ -27,7 +27,7 @@ The Unicode® Bidirectional Algorithm (BiDi Algorithm) is then used to reorder f
 
 This algorithm primarily based on character detection, but also uses special BiDi control characters available for manual control.
 
-FriBidi is a library that implements the Unicode BiDi algorithem to reorder text for visual display. This module provides Raku
+FriBidi is a library that implements the Unicode BiDi algorithm to reorder text for visual display. This module provides Raku
 bindings to FriBidi.
 
 
