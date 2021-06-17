@@ -69,6 +69,21 @@ The string, after applying any mirroring, shaping and directional ordering and w
 
 Installation
 ----
+
+### Debian/Ubuntu Linux
+
+```shell
+sudo apt-get install fribidi-dev
+```
+
+### Mac OS X
+
+```shell
+brew update
+brew install fribidi
+```
+
+
 Please install the `libfribidi-dev` package prior to installing this module.
 
 See Also
