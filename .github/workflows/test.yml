@@ -40,4 +40,4 @@ jobs:
       - name: Run Tests
         run: |
           prove6 -l t
-          zef install .
+          zef --verbose install .
