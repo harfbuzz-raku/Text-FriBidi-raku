@@ -37,7 +37,7 @@ multi method COERCE(Str:D $text) {
 
 method !build-logical {
     $!logical .= new: $!text.ords;
-    $!logical-map .= new: 0 ..^ $!logical.elems;
+    $!logical-map .= new: ^$!logical.elems;
 }
 
 method !build-bidi-types {
@@ -96,5 +96,5 @@ method lib-version {
 }
 
 method Str {
-    self.visual.map(*.chr).join;
+    self.visual>>.chr.join;
 }

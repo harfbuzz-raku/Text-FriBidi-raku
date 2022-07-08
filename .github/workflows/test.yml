@@ -39,5 +39,5 @@ jobs:
           zef --deps-only install .
       - name: Run Tests
         run: |
-          prove6 -l t
-          zef --verbose install .
+          prove6 -I. t
+          zef install .

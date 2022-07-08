@@ -10,6 +10,6 @@ submethod TWEAK {
     if self.flags +& FRIBIDI_FLAG_REMOVE_SPECIALS {
         my $len := fribidi_remove_bidi_marks(self.visual, self.elems, self.logical-map, self.visual-map, self.embedding-levels);
         self.visual .= subbuf(0, $len)
-            if $len ~~ 0 ..^ self.visual.elems;
+            if $len < self.visual.elems;
     }
 }

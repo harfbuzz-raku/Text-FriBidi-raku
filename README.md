@@ -73,7 +73,7 @@ Installation
 ### Debian/Ubuntu Linux
 
 ```shell
-sudo apt-get install fribidi-dev
+sudo apt-get install libfribidi-dev
 ```
 
 ### Mac OS X
@@ -82,10 +82,6 @@ sudo apt-get install fribidi-dev
 brew update
 brew install fribidi
 ```
-
-
-Please install the `libfribidi-dev` package prior to installing this module.
-
 See Also
 ----
 - [UAX #9: Unicode Bidirectional Algorithm](https://unicode.org/reports/tr9/)
