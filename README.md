@@ -14,9 +14,10 @@ plan 1;
 enum ( :Shin<ש>, :Resh<ר>, :He<ה> );
 
 my $text = "Sarah ({Shin~Resh~He})";
-$line .= new: :$text;
+my Text::FriBidi::Line $line .= new: :$text;
 my $visual = $line.Str;
 is-deeply $visual, "Sarah ({He~Resh~Shin})";
+is $line[7], He;
 ```
 
 Description

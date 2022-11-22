@@ -95,6 +95,16 @@ method lib-version {
     $version;
 }
 
+multi method AT-POS(UInt:D $i where * < $!visual.elems) {
+    $!visual[$i].chr;
+}
+
+multi method AT-POS(UInt:D) { Str }
+
+method Seq handles<List Array> {
+    $!visual>>.chr
+}
+
 method Str {
-    self.visual>>.chr.join;
+    self.Seq.join;
 }
