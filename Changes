@@ -2,6 +2,10 @@ Revision history for Text-FriBidi
 
 {{$NEXT}}
 
+0.0.3  2022-11-23T07:38:27+13:00
+    - Add AT-POS and List methods to obtain individual
+      characters.
+
 0.0.2  2022-07-09T20:00:11+12:00
     - Uploaded to zef ecosystem
 

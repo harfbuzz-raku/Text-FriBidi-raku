@@ -1,4 +1,4 @@
-unit class Text::FriBidi:ver<0.0.2>;
+unit class Text::FriBidi:ver<0.0.3>;
 
 use Text::FriBidi::Raw;
 use Text::FriBidi::Defs :types, :FriBidiFlag;
@@ -101,10 +101,10 @@ multi method AT-POS(UInt:D $i where * < $!visual.elems) {
 
 multi method AT-POS(UInt:D) { Str }
 
-method Seq handles<List Array> {
+method List handles<Array Seq> {
     $!visual>>.chr
 }
 
 method Str {
-    self.Seq.join;
+    self.List.join;
 }

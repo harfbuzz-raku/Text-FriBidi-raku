@@ -68,6 +68,22 @@ Base text direction; one of:
 
 The string, after applying any mirroring, shaping and directional ordering and with BiDi control characters removed (by default).
 
+### AT-POS, List, Array
+
+Methods for obtaining individual visual characters.
+
+Note that Raku may perform its own Unicode normalizations on strings. These
+methods can be used to get corresponding characters and properties.
+
+```raku
+use Text::FriBidi::Line;
+my Text::FriBidi::Line $line .= new(:text("A\r\nB"));
+say $line.Str.comb.raku; # "A", "\r\n", "B"
+say $line.List.raku; # "A" "\r" "\n" "B"
+say $line[3] ~ ' has type ' ~ $line.bidi-types[3];
+
+```
+
 Installation
 ----
 
