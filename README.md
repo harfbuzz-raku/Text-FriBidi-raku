@@ -6,6 +6,8 @@ Text::FriBidi
 Synopsis
 -----
 
+### Single line reordering
+
 ```raku
 use Text::FriBidi::Line;
 use Test;
@@ -18,6 +20,22 @@ my Text::FriBidi::Line $line .= new: :$text;
 my $visual = $line.Str;
 is-deeply $visual, "Sarah ({He~Resh~Shin})";
 is $line[7], He;
+```
+
+### Multiple lines reordering
+
+```raku
+use Text::FriBidi::Lines;
+use Test;
+plan 1;
+
+constant $LRO = 0x202D.chr;
+constant $RLO = 0x202E.chr;
+constant $PDF = 0x202C.chr;
+
+@lines = "Left", "{$RLO}Right{$PDF}", "{$LRO}left{$PDF}";
+my Text::FriBidi::Lines $para .= new: :@lines;
+is-deeply $para.lines, ('Left', 'thgiR', 'left');
 ```
 
 Description
@@ -47,6 +65,26 @@ method new(
 
 #### `:$text` option
 Input text, in logical reading/processing order. Possibly including [Unicode BiDi control characters](https://www.w3.org/International/questions/qa-bidi-unicode-controls.en).
+
+Text::FriBidi::Lines Methods
+-----
+
+### new()
+```raku
+use Text::FriBidi::Defs :FriBidiType, :FriBidiFlag;
+method new(
+    Str:D :@lines,      # paragraph lines, in logical order
+    UInt:D :$direction = FRIBIDI_TYPE_LTR, # default direction
+    UInt:D :$flags = FRIBIDI_FLAGS_DEFAULT +| FRIBIDI_FLAGS_ARABIC,
+)
+```
+
+#### `:@lines` option
+Input text, in logical reading/processing order. Possibly including [Unicode BiDi control characters](https://www.w3.org/International/questions/qa-bidi-unicode-controls.en).
+
+
+Common Options
+----------
 
 #### `:$flags` option
 A set of 'ored` flag, including:

@@ -3,7 +3,7 @@ unit class Text::FriBidi:ver<0.0.3>;
 use Text::FriBidi::Raw;
 use Text::FriBidi::Defs :types, :FriBidiFlag;
 
-has Str:D $.text is required;
+has Str $.text is built;
 has FriBidiParType $.direction is built is rw;
 has FriBidiFlags $.flags is built;
 has utf32 $.logical is built handles<elems>;
@@ -15,6 +15,13 @@ has Buf[FriBidiLevel]    $.embedding-levels is built;
 has Buf[FriBidiStrIndex] $.logical-map is built;
 has Buf[FriBidiStrIndex] $.visual-map is built;
 has UInt $.api = self.lib-version >= v1.0.0 ?? 1 !! 0;
+
+multi submethod BUILD(:@lines!, :$!direction = 0, :$!flags = FRIBIDI_FLAGS_DEFAULT +| FRIBIDI_FLAGS_ARABIC) {
+    $!text = @lines.join: "\f";
+}
+
+multi submethod BUILD(:$!text!, :$!direction = 0, :$!flags = FRIBIDI_FLAGS_DEFAULT +| FRIBIDI_FLAGS_ARABIC) {
+}
 
 submethod TWEAK(:$!direction = 0, :$!flags = FRIBIDI_FLAGS_DEFAULT +| FRIBIDI_FLAGS_ARABIC) {
     self!build-logical;
@@ -81,6 +88,16 @@ method visual-map {
     $!visual-map;
 }
 
+method remove-bidi-marks {
+    my $visual-len := fribidi_remove_bidi_marks($!visual, $!logical.elems, $!logical-map, self.visual-map, $!embedding-levels);
+    if $visual-len < $!visual.elems {
+        $!visual .= subbuf(0, $visual-len);
+        $!visual-map .= subbuf(0, $visual-len);
+        $!text = Nil;
+    }
+    $visual-len;
+}
+
 method version-info {
     fribidi_version_info();
 }
@@ -105,6 +122,10 @@ method List handles<Array Seq> {
     $!visual>>.chr
 }
 
-method Str {
+method Str handles<lines> {
     self.List.join;
+}
+
+method text {
+    $!text //= $!logical>>.chr.join;
 }

@@ -15,6 +15,7 @@
     "Text::FriBidi": "lib/Text/FriBidi.rakumod",
     "Text::FriBidi::Defs": "lib/Text/FriBidi/Defs.rakumod",
     "Text::FriBidi::Line": "lib/Text/FriBidi/Line.rakumod",
+    "Text::FriBidi::Lines": "lib/Text/FriBidi/Lines.rakumod",
     "Text::FriBidi::Raw": "lib/Text/FriBidi/Raw.rakumod"
   },
   "resources": [
