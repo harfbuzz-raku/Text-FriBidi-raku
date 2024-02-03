@@ -2,6 +2,9 @@ Revision history for Text-FriBidi
 
 {{$NEXT}}
 
+0.0.4  2024-02-04T06:23:26+13:00
+    - Add experimental Text::FriBidi::Lines method - for multiple lines reordering
+
 0.0.3  2022-11-23T07:38:27+13:00
     - Add AT-POS and List methods to obtain individual
       characters.
