@@ -6,7 +6,7 @@ also is Text::FriBidi;
 use Text::FriBidi::Raw;
 use Text::FriBidi::Defs :types, :FriBidiFlag;
 
-submethod TWEAK {
+submethod TWEAK(:lines(@)!) {
     my FriBidiStrIndex $offset = 0;
     for self.text.lines(:!chomp) -> $line {
         my FriBidiStrIndex $line-len = $line.ords.elems;

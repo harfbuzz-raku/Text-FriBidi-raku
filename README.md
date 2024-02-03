@@ -22,7 +22,7 @@ is-deeply $visual, "Sarah ({He~Resh~Shin})";
 is $line[7], He;
 ```
 
-### Multiple lines reordering
+### Multiple lines reordering (experimental)
 
 ```raku
 use Text::FriBidi::Lines;
@@ -73,14 +73,14 @@ Text::FriBidi::Lines Methods
 ```raku
 use Text::FriBidi::Defs :FriBidiType, :FriBidiFlag;
 method new(
-    Str:D :@lines,      # paragraph lines, in logical order
+    Str:D :@lines!,      # paragraph lines, in logical order
     UInt:D :$direction = FRIBIDI_TYPE_LTR, # default direction
     UInt:D :$flags = FRIBIDI_FLAGS_DEFAULT +| FRIBIDI_FLAGS_ARABIC,
 )
 ```
 
 #### `:@lines` option
-Input text, in logical reading/processing order. Possibly including [Unicode BiDi control characters](https://www.w3.org/International/questions/qa-bidi-unicode-controls.en).
+Input text lines, in logical reading/processing order. Possibly including [Unicode BiDi control characters](https://www.w3.org/International/questions/qa-bidi-unicode-controls.en).
 
 
 Common Options
