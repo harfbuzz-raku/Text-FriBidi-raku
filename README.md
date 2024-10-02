@@ -29,9 +29,9 @@ use Text::FriBidi::Lines;
 use Test;
 plan 1;
 
-constant $LRO = 0x202D.chr;
-constant $RLO = 0x202E.chr;
-constant $PDF = 0x202C.chr;
+constant $LRO = "\c[LEFT-TO-RIGHT OVERRIDE]";
+constant $RLO = "\c[RIGHT-TO-LEFT OVERRIDE]";
+constant $PDF = "\c[POP DIRECTIONAL FORMATTING]";
 
 @lines = "Left", "{$RLO}Right{$PDF}", "{$LRO}left{$PDF}";
 my Text::FriBidi::Lines $para .= new: :@lines;

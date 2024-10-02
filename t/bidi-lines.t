@@ -3,9 +3,9 @@ plan 4;
 
 use Text::FriBidi::Lines;
 
-constant $LRO = 0x202D.chr;
-constant $RLO = 0x202E.chr;
-constant $PDF = 0x202C.chr;
+constant $LRO = "\c[LEFT-TO-RIGHT OVERRIDE]";
+constant $RLO = "\c[RIGHT-TO-LEFT OVERRIDE]";
+constant $PDF = "\c[POP DIRECTIONAL FORMATTING]";
 
 my @lines = "Left", "Right", "left";
 my Text::FriBidi::Lines $bidi .= new: :@lines;
