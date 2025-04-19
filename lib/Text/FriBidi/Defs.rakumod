@@ -1,5 +1,7 @@
 unit module Text::FriBidi::Defs;
 
+use MacOS::NativeLib 'fribidi';
+
 our $FB is export(:FB) = 'fribidi';
 our $CLIB is export(:CLIB) = Rakudo::Internals.IS-WIN ?? 'msvcrt' !! Str;
 

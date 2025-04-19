@@ -1,6 +1,7 @@
 Revision history for Text-FriBidi
 
 {{$NEXT}}
+    - Use MacOS::NativeLib to resolve libraries on MacOS
 
 0.0.4  2024-02-04T06:23:26+13:00
     - Add experimental Text::FriBidi::Lines method - for multiple lines reordering

@@ -6,6 +6,7 @@
   "build-depends": [
   ],
   "depends": [
+      "MacOS::NativeLib"
   ],
   "description": "Bindings to the FriBidi bidirectional Unicode implmentation",
   "license": "Artistic-2.0",
