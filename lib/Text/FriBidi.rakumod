@@ -1,4 +1,4 @@
-unit class Text::FriBidi:ver<0.0.4>;
+unit class Text::FriBidi:ver<0.0.5>;
 
 use Text::FriBidi::Raw;
 use Text::FriBidi::Defs :types, :FriBidiFlag;

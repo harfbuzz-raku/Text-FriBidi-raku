@@ -6,7 +6,7 @@
   "build-depends": [
   ],
   "depends": [
-      "MacOS::NativeLib"
+    "MacOS::NativeLib"
   ],
   "description": "Bindings to the FriBidi bidirectional Unicode implmentation",
   "license": "Artistic-2.0",
@@ -21,7 +21,7 @@
   },
   "resources": [
   ],
-  "source-url": "git://github.com/harfbuzz-raku/Text-FriBidi-raku.git",
+  "source-url": "https://github.com/harfbuzz-raku/Text-FriBidi-raku.git",
   "tags": [
     "bidi",
     "unicode",
@@ -29,5 +29,5 @@
   ],
   "test-depends": [
   ],
-  "version": "0.0.4"
+  "version": "0.0.5"
 }
