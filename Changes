@@ -2,6 +2,9 @@ Revision history for Text-FriBidi
 
 {{$NEXT}}
 
+0.0.7  2025-05-23T06:40:40+12:00
+   - Fix BiDi flag handling for Raku 2025.05
+
 0.0.6  2025-05-15T07:12:34+12:00
    - Correctly handle base-direction as a r/w parameter
      in fribidi_reorder_line()
